@@ -1,0 +1,22 @@
+.navbar{
+
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: black;
+    height: 55px;
+}
+
+.navitems{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+
+}
+
+.main {
+    margin: 3rem auto;
+    width: 90%;
+    max-width: 40rem;
+  }

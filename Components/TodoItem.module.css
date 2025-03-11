@@ -1,0 +1,26 @@
+.pending{
+    /* background-color:gray; */
+    /* width: 300px; */
+    color: whitesmoke;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.completed{
+    color: rgb(38, 124, 44);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+
+}
+.button{
+    margin-left: 20px;
+    padding-inline: 10px;
+}
+
+
+  
