@@ -1,12 +1,12 @@
 import TodoForm from "@/Components/Todo-Form";
 import TodoList from "@/Components/TodoList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MongoClient } from "mongodb";
 
 function HomePage(props) {
-const [Todos,setTodos]=useState([])
+const [Todos,setTodos]=useState(props.Todos || [])
 const addedTodo=async(enteredValue)=>{
-  console.log(enteredValue)
+ 
   setTodos([...Todos,enteredValue])
   const response=await fetch('/api/Add-Todo',
     {
@@ -15,17 +15,20 @@ const addedTodo=async(enteredValue)=>{
         headers:{
             'Content-Type' : 'application/json'
         }
+        
     }
 )
 const data= await response.json();
-console.log(data)
+
+
+
 
 }
 
   return (
     <div className="container">
       <div className="form"  ><TodoForm addedtodo={addedTodo}/></div>
-      <div className="list"><TodoList Todos={props.Todos} setTodos={setTodos} /></div>
+      <div className="list"><TodoList Todos={Todos} setTodos={setTodos} /></div>
       
     </div>
   )

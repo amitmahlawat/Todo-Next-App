@@ -1,7 +1,29 @@
 import classes from './TodoItem.module.css'
 
 
-const TodoItem = ({title,id,DeleteTask,completeTask,status}) => {
+const TodoItem = ({title,id,DeleteTask,status, Todos,setTodos}) => {
+
+const completeTask=async(id)=>{
+    setTodos(Todos.map(todo =>
+        todo.id === id ? { ...todo, status: status==="pending"? "completed" : "pending" }: todo
+    ));
+
+    const updatedData={
+        id: id,
+        status: status==="pending" ? "completed" : "pending"
+    }
+
+    const response=await fetch('/api/Add-Todo',{
+        method:"PATCH",
+        body:JSON.stringify(updatedData),
+        headers:{
+            'content-type': 'application/json'
+        }
+    })
+    const data = await response.json();
+  console.log(updatedData);
+
+}
 
 
   return (
