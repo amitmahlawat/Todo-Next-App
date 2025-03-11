@@ -11,7 +11,7 @@ export default function TodoForm(props) {
     const TodoItem={
       title: text,
       status:"pending",
-      id: Math.random()
+      
     }
     props.addedtodo(TodoItem)
     setText('')}

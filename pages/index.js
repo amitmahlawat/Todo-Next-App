@@ -1,23 +1,58 @@
 import TodoForm from "@/Components/Todo-Form";
 import TodoList from "@/Components/TodoList";
 import { useState } from "react";
+import { MongoClient } from "mongodb";
 
-
-function HomePage() {
+function HomePage(props) {
 const [Todos,setTodos]=useState([])
-const addedTodo=(enteredValue)=>{
+const addedTodo=async(enteredValue)=>{
   console.log(enteredValue)
   setTodos([...Todos,enteredValue])
+  const response=await fetch('/api/Add-Todo',
+    {
+        method: "POST",
+        body: JSON.stringify(enteredValue),
+        headers:{
+            'Content-Type' : 'application/json'
+        }
+    }
+)
+const data= await response.json();
+console.log(data)
 
 }
 
   return (
     <div className="container">
       <div className="form"  ><TodoForm addedtodo={addedTodo}/></div>
-      <div className="list"><TodoList Todos={Todos} setTodos={setTodos} /></div>
+      <div className="list"><TodoList Todos={props.Todos} setTodos={setTodos} /></div>
       
     </div>
   )
 }
+
+
+export async function getStaticProps() {
+  const Client=await MongoClient.connect('mongodb+srv://Amit:hQOowmd9qfJPIiMN@cluster0.rleji.mongodb.net/Todos?retryWrites=true&w=majority&appName=Cluster0')
+    const db=Client.db()
+    const TodosCollection=db.collection("Todos")
+  const Todo = await TodosCollection.find().toArray();
+  console.log(Todo)
+  Client.close();
+
+  return {
+    props: {
+      Todos: Todo.map((item) => ({
+        title: item.title,
+        status: item.status,
+        id: item._id.toString(),
+      })),
+    },
+    revalidate: 1,
+  };
+}
+
+
+
 
 export default HomePage;

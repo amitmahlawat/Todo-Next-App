@@ -1,6 +1,6 @@
 import { useState } from "react"
 import TodoItem from "./TodoItem"
-
+import classes from './TodoItem.module.css'
 
 const TodoList = ({Todos,setTodos}) => {
     
@@ -24,10 +24,10 @@ const TodoList = ({Todos,setTodos}) => {
     
   return (
     
-    <ul>
+    <ul >
     {Todos.map((item)=>(
         
-        <TodoItem key={item.id} id={item.id} title={item.title} status={item.status} DeleteTask={HandleDelete}  completeTask={HandleComplete}/>
+        <TodoItem key={Math.random()}  title={item.title} status={item.status} DeleteTask={HandleDelete}  completeTask={HandleComplete}/>
     ))}
     </ul>)
 }
