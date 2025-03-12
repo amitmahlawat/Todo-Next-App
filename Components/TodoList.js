@@ -24,7 +24,7 @@ const TodoList = ({Todos,setTodos}) => {
     // }
     
   return (
-    
+    // .filter(item=>item.status!="completed")
     <ul >
     {Todos.map((item)=>(
         

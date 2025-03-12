@@ -2,9 +2,11 @@ import TodoForm from "@/Components/Todo-Form";
 import TodoList from "@/Components/TodoList";
 import { useEffect, useState } from "react";
 import { MongoClient } from "mongodb";
+import { useRouter } from "next/router";
 
 function HomePage(props) {
 const [Todos,setTodos]=useState(props.Todos || [])
+const pendingTodos=Todos.filter(todo=>todo.status==="pending")
 const addedTodo=async(enteredValue)=>{
  
   setTodos([...Todos,enteredValue])
@@ -21,6 +23,7 @@ const addedTodo=async(enteredValue)=>{
 const data= await response.json();
 
 
+  
 
 
 }
@@ -28,7 +31,7 @@ const data= await response.json();
   return (
     <div className="container">
       <div className="form"  ><TodoForm addedtodo={addedTodo}/></div>
-      <div className="list"><TodoList Todos={Todos} setTodos={setTodos} /></div>
+      <div className="list"><TodoList Todos={pendingTodos} setTodos={setTodos} /></div>
       
     </div>
   )
@@ -41,6 +44,7 @@ export async function getStaticProps() {
     const TodosCollection=db.collection("Todos")
   const Todo = await TodosCollection.find().toArray();
   console.log(Todo)
+  
   Client.close();
 
   return {

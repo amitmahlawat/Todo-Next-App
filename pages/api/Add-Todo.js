@@ -30,6 +30,20 @@ const Handler=async(req,res)=>{
     res.status(201).json({message:"status updated"})
     }
 
+
+    if(req.method === "DELETE"){
+        const {id}=req.body
+    console.log(id)
+    const Client=await MongoClient.connect('mongodb+srv://Amit:hQOowmd9qfJPIiMN@cluster0.rleji.mongodb.net/Todos?retryWrites=true&w=majority&appName=Cluster0')
+    const db=Client.db()
+    const TodosCollection=db.collection("Todos");
+    const result=await TodosCollection.deleteOne({_id: new ObjectId(id)});
+    Client.close()
+    res.status(201).json({message:"Todo Deleted"})
+    
+
+}
+
 }
 
 export default Handler;

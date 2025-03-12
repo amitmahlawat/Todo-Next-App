@@ -1,7 +1,7 @@
 import classes from './TodoItem.module.css'
 
 
-const TodoItem = ({title,id,DeleteTask,status, Todos,setTodos}) => {
+const TodoItem = ({title,id,status, Todos,setTodos}) => {
 
 const completeTask=async(id)=>{
     setTodos(Todos.map(todo =>
@@ -23,6 +23,22 @@ const completeTask=async(id)=>{
     const data = await response.json();
   console.log(updatedData);
 
+}
+
+const DeleteTask=async(id)=>{
+    setTodos(Todos.filter(todo=>todo.id!==id))
+    const response = await fetch("/api/Add-Todo", {
+        method: "DELETE",
+        body: JSON.stringify({id}),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    
+      const data = await response.json();
+      console.log(data.message);
+
+    
 }
 
 

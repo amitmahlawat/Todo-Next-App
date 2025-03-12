@@ -8,7 +8,7 @@ const Navigation = () => {
         <h1>Todo List App</h1>
         <div className={classes.navitems}>
             <Link href={'/'}>Todo List</Link>
-            {/* <Link href={'/completed'}>Completed</Link> */}
+            <Link href={'/completed'}>Completed</Link>
         </div>
       
     </div>
